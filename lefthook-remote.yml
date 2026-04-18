@@ -1,0 +1,12 @@
+---
+pre-commit:
+  commands:
+    bats-parse:
+      glob: "*.bats"
+      run: timeout ${LEFTHOOK_BATS_PARSE_TIMEOUT:-30} bats -c {staged_files}
+
+pre-push:
+  commands:
+    bats-parse:
+      glob: "*.bats"
+      run: timeout ${LEFTHOOK_BATS_PARSE_TIMEOUT:-30} bats -c {push_files}
