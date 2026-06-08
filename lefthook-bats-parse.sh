@@ -6,22 +6,22 @@
 # NOTE: sourced by writeShellApplication — no shebang or set needed.
 
 if [ $# -eq 0 ]; then
-    exit 0
+  exit 0
 fi
 
 failed=0
 for f in "$@"; do
-    [ -f "$f" ] || continue
-    case "$f" in
-        *.bats) ;;
-        *) continue ;;
-    esac
+  [ -f "$f" ] || continue
+  case "$f" in
+    *.bats) ;;
+    *) continue ;;
+  esac
 
-    if ! out="$(bats -c "$f" 2>&1)"; then
-        echo "$f: parse error" >&2
-        printf '%s\n' "$out" >&2
-        failed=1
-    fi
+  if ! out="$(bats -c "$f" 2>&1)"; then
+    echo "$f: parse error" >&2
+    printf '%s\n' "$out" >&2
+    failed=1
+  fi
 done
 
 exit "$failed"
