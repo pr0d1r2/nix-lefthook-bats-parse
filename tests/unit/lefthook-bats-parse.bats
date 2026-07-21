@@ -23,6 +23,12 @@ setup() {
     assert_success
 }
 
+@test "empty bats file passes" {
+    touch "$TMP/empty.bats"
+    run lefthook-bats-parse "$TMP/empty.bats"
+    assert_success
+}
+
 @test "well-formed bats file passes" {
     cat > "$TMP/good.bats" <<'BATS'
 #!/usr/bin/env bats
