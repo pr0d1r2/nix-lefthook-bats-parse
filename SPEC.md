@@ -2,7 +2,10 @@
 
 ## §D — Description
 
-Nix-flake-packaged lefthook check that validates `.bats` file syntax via `bats -c`, catching malformed `@test` blocks at pre-commit/pre-push time. Ships as a lefthook remote (zero-config YAML stanza) or a Nix package with per-file error reporting. Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
+Nix-flake-packaged lefthook check that validates `.bats` file syntax via `bats -c`,
+catching malformed `@test` blocks at pre-commit/pre-push time.
+Ships as a lefthook remote (zero-config YAML stanza) or a Nix package with per-file error reporting.
+Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 
 ## §V — Invariants
 
@@ -60,3 +63,4 @@ Nix-flake-packaged lefthook check that validates `.bats` file syntax via `bats -
 3. **`actions/checkout` version mismatch** — `ci.yml` (v6) vs `update-pins.yml` (v4).
 4. **Remote mode less structured** — `bats -c {staged_files}` gives less structured error output than the per-file wrapper.
 5. **Duplicate `default` in `packages`** — migration left a stale `pkgs.mkShell` block (referencing undefined `ciCommon`/`batsWithLibs`) as a second `default` inside `packages`, causing `nix flake check` to fail with "attribute 'default' already defined".
+6. **Confirm app missing materialized packages** — `apps.confirm` `runtimeInputs` lacked `mat.packages`, so coherence check failed for `lefthook-markdownlint`, `lefthook-markdownlint-agentic`, `lefthook-yamllint`.
