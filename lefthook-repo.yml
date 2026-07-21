@@ -1,0 +1,15 @@
+# Repo-local checks carried through from vendored lefthook.yml (#126).
+---
+
+pre-commit:
+  commands:
+    bats-parse:
+      glob: "*.bats"
+      run: timeout ${LEFTHOOK_BATS_PARSE_TIMEOUT:-30} bats -c {staged_files}
+
+
+pre-push:
+  commands:
+    bats-parse:
+      glob: "*.bats"
+      run: timeout ${LEFTHOOK_BATS_PARSE_TIMEOUT:-30} bats -c {push_files}
