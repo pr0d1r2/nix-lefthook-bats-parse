@@ -64,3 +64,4 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 4. **Remote mode less structured** — `bats -c {staged_files}` gives less structured error output than the per-file wrapper.
 5. **Duplicate `default` in `packages`** — migration left a stale `pkgs.mkShell` block (referencing undefined `ciCommon`/`batsWithLibs`) as a second `default` inside `packages`, causing `nix flake check` to fail with "attribute 'default' already defined".
 6. **Confirm app missing materialized packages** — `apps.confirm` `runtimeInputs` lacked `mat.packages`, so coherence check failed for `lefthook-markdownlint`, `lefthook-markdownlint-agentic`, `lefthook-yamllint`.
+7. **Confirm app embedded shell in flake.nix** — `apps.confirm` `text` block contained inline shell (export/bash lines), failing `nix-no-embedded-shell-check`. Extracted to `nix/confirm.sh` with `@PLACEHOLDER@` substitution via `builtins.replaceStrings`.
