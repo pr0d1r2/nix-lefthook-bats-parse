@@ -46,12 +46,6 @@
           runtimeInputs = [ pkgs.bats ];
           text = builtins.readFile ./lefthook-bats-parse.sh;
         };
-          default = pkgs.mkShell {
-            packages = ciCommon;
-            shellHook = builtins.replaceStrings [ "@BATS_LIB_PATH@" ] [ "${batsWithLibs}" ] (
-              builtins.readFile ./dev.sh
-            );
-          };
         setting = (set-and-setting.lib.mkSetting { inherit pkgs; }).materialized;
       });
 

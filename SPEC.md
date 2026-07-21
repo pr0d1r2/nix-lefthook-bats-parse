@@ -59,3 +59,4 @@ Nix-flake-packaged lefthook check that validates `.bats` file syntax via `bats -
 2. **Local lefthook uses `bats -c` directly** — doesn't dogfood `lefthook-bats-parse`; regressions in the wrapper only caught by tests.
 3. **`actions/checkout` version mismatch** — `ci.yml` (v6) vs `update-pins.yml` (v4).
 4. **Remote mode less structured** — `bats -c {staged_files}` gives less structured error output than the per-file wrapper.
+5. **Duplicate `default` in `packages`** — migration left a stale `pkgs.mkShell` block (referencing undefined `ciCommon`/`batsWithLibs`) as a second `default` inside `packages`, causing `nix flake check` to fail with "attribute 'default' already defined".
