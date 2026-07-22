@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup() {
+    bats_require_minimum_version 1.5.0
     load "${BATS_LIB_PATH}/bats-support/load.bash"
     load "${BATS_LIB_PATH}/bats-assert/load.bash"
 
@@ -65,6 +66,17 @@ BATS
 BATS
     run lefthook-bats-parse "$TMP/bad.bats"
     assert_failure
+}
+
+@test "parse error reports path in stderr" {
+    cat > "$TMP/bad.bats" <<'BATS'
+#!/usr/bin/env bats
+@test "broken" {
+BATS
+    run --separate-stderr lefthook-bats-parse "$TMP/bad.bats"
+    assert_failure
+    assert_output ""
+    assert_equal "${stderr_lines[0]}" "$TMP/bad.bats: parse error"
 }
 
 @test "multiple files: only bad one is reported" {
