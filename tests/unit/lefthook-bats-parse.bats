@@ -17,6 +17,13 @@ setup() {
     assert_success
 }
 
+@test "directory argument is skipped" {
+    mkdir "$TMP/directory.bats"
+    run lefthook-bats-parse "$TMP/directory.bats"
+    assert_success
+    assert_output ""
+}
+
 @test "non-bats files are skipped" {
     echo 'hello' > "$TMP/readme.md"
     run lefthook-bats-parse "$TMP/readme.md"
