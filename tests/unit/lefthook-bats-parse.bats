@@ -29,6 +29,16 @@ setup() {
     assert_success
 }
 
+@test "bats file with only comments passes" {
+    cat > "$TMP/comments-only.bats" <<'BATS'
+#!/usr/bin/env bats
+# This file intentionally contains no tests.
+# bats -c should accept comments without requiring an @test block.
+BATS
+    run lefthook-bats-parse "$TMP/comments-only.bats"
+    assert_success
+}
+
 @test "well-formed bats file passes" {
     cat > "$TMP/good.bats" <<'BATS'
 #!/usr/bin/env bats
