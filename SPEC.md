@@ -53,15 +53,14 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 | `x` | T4 | Test directory argument is skipped |
 | `x` | T5 | Test stderr output format on parse error |
 | `x` | T6 | Dogfood `lefthook-bats-parse` in local `lefthook.yml` |
-| `.` | T7 | Align `actions/checkout` version across CI workflows (v4 vs v6) |
+| `x` | T7 | Align `actions/checkout` version across CI workflows (v4 vs v6) |
 | `.` | T8 | Add markdownlint lefthook remote for `.md` files |
 
 ## §B — Bugs / Known Issues
 
 1. **`.envrc` missing `watch_file`** — only `use flake`, no watches on `flake.nix`/`flake.lock`/`dev.sh`; changes require manual `direnv reload`.
 2. **Local lefthook uses `bats -c` directly** — doesn't dogfood `lefthook-bats-parse`; regressions in the wrapper only caught by tests.
-3. **`actions/checkout` version mismatch** — `ci.yml` (v6) vs `update-pins.yml` (v4).
-4. **Remote mode less structured** — `bats -c {staged_files}` gives less structured error output than the per-file wrapper.
-5. **Duplicate `default` in `packages`** — migration left a stale `pkgs.mkShell` block (referencing undefined `ciCommon`/`batsWithLibs`) as a second `default` inside `packages`, causing `nix flake check` to fail with "attribute 'default' already defined".
-6. **Confirm app missing materialized packages** — `apps.confirm` `runtimeInputs` lacked `mat.packages`, so coherence check failed for `lefthook-markdownlint`, `lefthook-markdownlint-agentic`, `lefthook-yamllint`.
-7. **Confirm app embedded shell in flake.nix** — `apps.confirm` `text` block contained inline shell (export/bash lines), failing `nix-no-embedded-shell-check`. Extracted to `nix/confirm.sh` with `@PLACEHOLDER@` substitution via `builtins.replaceStrings`.
+3. **Remote mode less structured** — `bats -c {staged_files}` gives less structured error output than the per-file wrapper.
+4. **Duplicate `default` in `packages`** — migration left a stale `pkgs.mkShell` block (referencing undefined `ciCommon`/`batsWithLibs`) as a second `default` inside `packages`, causing `nix flake check` to fail with "attribute 'default' already defined".
+5. **Confirm app missing materialized packages** — `apps.confirm` `runtimeInputs` lacked `mat.packages`, so coherence check failed for `lefthook-markdownlint`, `lefthook-markdownlint-agentic`, `lefthook-yamllint`.
+6. **Confirm app embedded shell in flake.nix** — `apps.confirm` `text` block contained inline shell (export/bash lines), failing `nix-no-embedded-shell-check`. Extracted to `nix/confirm.sh` with `@PLACEHOLDER@` substitution via `builtins.replaceStrings`.
