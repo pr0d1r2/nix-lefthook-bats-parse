@@ -1,6 +1,12 @@
 # Repo-local checks carried through from vendored lefthook.yml (#126).
 ---
 
+remotes:
+  - git_url: https://github.com/pr0d1r2/nix-lefthook-markdownlint
+    ref: main
+    configs:
+      - lefthook-remote.yml
+
 pre-commit:
   commands:
     bats-parse:
