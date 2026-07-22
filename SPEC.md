@@ -52,7 +52,7 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 | `x` | T3 | Test `.bats` file with only comments exits 0 |
 | `x` | T4 | Test directory argument is skipped |
 | `x` | T5 | Test stderr output format on parse error |
-| `.` | T6 | Dogfood `lefthook-bats-parse` in local `lefthook.yml` |
+| `x` | T6 | Dogfood `lefthook-bats-parse` in local `lefthook.yml` |
 | `.` | T7 | Align `actions/checkout` version across CI workflows (v4 vs v6) |
 | `.` | T8 | Add markdownlint lefthook remote for `.md` files |
 
