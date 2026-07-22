@@ -50,7 +50,7 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 | `x` | T1 | Add `watch_file` entries to `.envrc` for `flake.nix`, `flake.lock`, `dev.sh` |
 | `x` | T2 | Test empty `.bats` file (zero `@test` blocks) exits 0 |
 | `x` | T3 | Test `.bats` file with only comments exits 0 |
-| `.` | T4 | Test directory argument is skipped |
+| `x` | T4 | Test directory argument is skipped |
 | `.` | T5 | Test stderr output format on parse error |
 | `.` | T6 | Dogfood `lefthook-bats-parse` in local `lefthook.yml` |
 | `.` | T7 | Align `actions/checkout` version across CI workflows (v4 vs v6) |
