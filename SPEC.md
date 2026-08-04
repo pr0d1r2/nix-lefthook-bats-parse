@@ -67,3 +67,4 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 7. **Flake lock exceeded the file-size limit** — the refreshed transitive dependency graph legitimately grew `flake.lock` beyond the stale 64 KiB `.lock` ceiling. Raised the enforced `.lock` limit to 128 KiB while retaining the file-size check.
 8. **Flake manifest rejected helper bindings** — the guardrail disallows top-level `let` helpers in `outputs`; inlined system and fragment definitions in the output expressions while preserving all outputs.
 9. **Confirm app missing from flake outputs** — CI invokes `nix run .#confirm`, but the flake exported an empty app set; added the materialization-aware confirm app for every supported system.
+10. **Generated lefthook configuration missing** — `lefthook.yml` was ignored and absent, so the guardrail could not verify fidelity or parse the repository hooks; committed the generated aggregate configuration.
