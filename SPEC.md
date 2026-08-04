@@ -69,3 +69,6 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 9. **Confirm app missing from flake outputs** — CI invokes `nix run .#confirm`, but the flake exported an empty app set; added the materialization-aware confirm app for every supported system.
 10. **Generated lefthook configuration missing** — `lefthook.yml` was ignored and absent, so the guardrail could not verify fidelity or parse the repository hooks; committed the generated aggregate configuration.
 11. **Materialized lefthook wrappers missing from PATH** — the generated `lefthook.yml` referenced fragment-provided wrappers, but the dev shell and confirm app only exposed the repository's own package; added the materialization packages to both runtime paths.
+12. **`outputs.nix` did not match the pinned nixfmt style** — the guardrail's `nixfmt-check` rejected the flake output formatting; reformatted `outputs.nix` with the repository's nixfmt version.
+13. **Statix rejected a redundant assignment in `outputs.nix`** — its lint check requires inheriting an existing attribute; changed the `setting` binding to `inherit` from the package set.
+14. **Bug-history growth exceeded the Markdown file-size limit** — adding the required §B records pushed `SPEC.md` over the generic 4 KiB ceiling; raised the Markdown-specific limit to 8 KiB.
