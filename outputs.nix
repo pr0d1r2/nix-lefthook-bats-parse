@@ -19,7 +19,10 @@
     let pkgs = nixpkgs.legacyPackages.${system}; in
     set-and-setting.lib.mkDevShells {
       inherit pkgs;
-      basePackages = (set-and-setting.lib.materializationFor { inherit pkgs; fragments = [ "base" "nix" "shell" "ascii" "markdown" "yaml" ]; }).packages ++ [ self.packages.${system}.default ];
+      basePackages = (set-and-setting.lib.materializationFor {
+        inherit pkgs;
+        fragments = [ "base" "nix" "shell" "ascii" "markdown" "yaml" ];
+      }).packages ++ [ self.packages.${system}.default ];
     });
 
   checks = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux" ] (system:
@@ -30,6 +33,10 @@
     let
       pkgs = nixpkgs.legacyPackages.${system};
       setting = self.packages.${system}.setting;
+      materialization = set-and-setting.lib.materializationFor {
+        inherit pkgs;
+        fragments = [ "base" "nix" "shell" "ascii" "markdown" "yaml" ];
+      };
     in
     {
       confirm = {
@@ -43,7 +50,7 @@
             pkgs.gawk
             pkgs.git
             pkgs.gnugrep
-          ];
+          ] ++ materialization.packages;
           text = builtins.replaceStrings
             [
               "@FRAGMENTS_DIR@"

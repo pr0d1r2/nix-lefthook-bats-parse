@@ -68,3 +68,4 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 8. **Flake manifest rejected helper bindings** — the guardrail disallows top-level `let` helpers in `outputs`; inlined system and fragment definitions in the output expressions while preserving all outputs.
 9. **Confirm app missing from flake outputs** — CI invokes `nix run .#confirm`, but the flake exported an empty app set; added the materialization-aware confirm app for every supported system.
 10. **Generated lefthook configuration missing** — `lefthook.yml` was ignored and absent, so the guardrail could not verify fidelity or parse the repository hooks; committed the generated aggregate configuration.
+11. **Materialized lefthook wrappers missing from PATH** — the generated `lefthook.yml` referenced fragment-provided wrappers, but the dev shell and confirm app only exposed the repository's own package; added the materialization packages to both runtime paths.
