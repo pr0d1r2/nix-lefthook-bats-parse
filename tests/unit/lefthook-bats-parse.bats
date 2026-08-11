@@ -91,4 +91,5 @@ BATS
     run lefthook-bats-parse "$TMP/good.bats" "$TMP/bad.bats"
     assert_failure
     assert_output --partial "bad.bats"
+    refute_output --partial "good.bats"
 }
