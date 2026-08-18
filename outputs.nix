@@ -18,6 +18,11 @@
             runtimeInputs = [ pkgs.bats ];
             text = builtins.readFile ./lefthook-bats-parse.sh;
           };
+          actionlint = pkgs.writeShellApplication {
+            name = "lefthook-actionlint";
+            runtimeInputs = [ pkgs.actionlint ];
+            text = builtins.readFile ./lefthook-actionlint.sh;
+          };
           setting = (set-and-setting.lib.mkSetting { inherit pkgs; }).materialized;
         }
       );
@@ -36,6 +41,7 @@
               inherit pkgs;
               fragments = [
                 "base"
+                "actions"
                 "nix"
                 "shell"
                 "ascii"
@@ -43,7 +49,7 @@
                 "yaml"
               ];
             }).packages
-            ++ [ self.packages.${system}.default ];
+            ++ [ self.packages.${system}.default self.packages.${system}.actionlint ];
         }
       );
 
@@ -75,6 +81,7 @@
         inherit pkgs;
         fragments = [
           "base"
+          "actions"
           "nix"
           "shell"
           "ascii"
@@ -97,7 +104,8 @@
               pkgs.git
               pkgs.gnugrep
             ]
-            ++ materialization.packages;
+            ++ materialization.packages
+            ++ [ self.packages.${system}.actionlint ];
             text =
               builtins.replaceStrings
                 [
