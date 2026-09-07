@@ -72,3 +72,4 @@ Targets Nix+lefthook+bats projects on Linux and macOS (amd64/arm64).
 12. **`outputs.nix` did not match the pinned nixfmt style** — the guardrail's `nixfmt-check` rejected the flake output formatting; reformatted `outputs.nix` with the repository's nixfmt version.
 13. **Statix rejected a redundant assignment in `outputs.nix`** — its lint check requires inheriting an existing attribute; changed the `setting` binding to `inherit` from the package set.
 14. **Bug-history growth exceeded the Markdown file-size limit** — adding the required §B records pushed `SPEC.md` over the generic 4 KiB ceiling; raised the Markdown-specific limit to 8 KiB.
+15. **Generated lefthook configuration was absent from the committed tree** — `.gitignore` hid the materialized `lefthook.yml`, so the guardrail confirmation failed completeness and executability checks; regenerated and force-added the canonical configuration.
